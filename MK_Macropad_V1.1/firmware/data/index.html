@@ -1,0 +1,71 @@
+/*
+ * MK Macropad - Firmware / User Interface
+ * Copyright (C) 2026 MK
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ */
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title data-i18n="home_title">Accueil – MK Macropad</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="js/lib/iro.min.js" defer></script>
+</head>
+
+<body>
+  <div class="card">
+
+    <!-- Barre supérieure -->
+    <div class="badge">
+      <div class="left">
+        <span class="dot" id="statusDot"></span>
+        <span>MK Macropad</span>
+      </div>
+
+      <!-- ❗️ data-i18n retiré -->
+      <span id="layoutIndicator">Layout : AZERTY (FR)</span>
+    </div>
+
+    <h1 data-i18n="home_title">Accueil</h1>
+
+    <div class="subtitle" data-i18n="home_subtitle">
+      Votre macropad est prêt.<br>
+      Construisons l’interface ensemble.
+    </div>
+
+    <!-- Onglets -->
+    <div id="tabs">
+      <button class="tab-btn active" data-tab="keys" data-i18n="tab_keys">Touches</button>
+      <button class="tab-btn" data-tab="leds" data-i18n="tab_leds">LEDs</button>
+      <button class="tab-btn" data-tab="system" data-i18n="tab_system">Paramètres</button>
+    </div>
+
+    <div id="tab-content"></div>
+  </div>
+
+  <script type="module" src="js/dashboard.js"></script>
+
+  <script>
+    const statusDot = document.getElementById("statusDot");
+    statusDot.style.backgroundColor = "limegreen";
+    statusDot.style.boxShadow = "0 0 6px limegreen";
+  </script>
+
+</body>
+</html>

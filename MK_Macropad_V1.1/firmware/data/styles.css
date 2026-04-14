@@ -1,0 +1,582 @@
+/*
+ * MK Macropad - Firmware / User Interface
+ * Copyright (C) 2026 MK
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ */
+
+
+
+:root {
+  --bg: #050509;
+  --bg-card: #11111a;
+  --accent: #7c4dff;
+  --accent-soft: rgba(124, 77, 255, 0.2);
+  --text: #f5f5f7;
+  --text-muted: #9b9bb2;
+  --danger: #ff4d6a;
+  --connected: #22c55e;
+  --disconnected: #f44336;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #171727 0, #050509 55%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.card {
+  background: linear-gradient(145deg, #15151f, #0b0b12);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+  max-width: 420px;
+  width: 100%;
+  padding: 22px 20px 20px;
+}
+
+/* --- BARRE GÉNÉRALE / BADGE --- */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(124, 77, 255, 0.15);
+  color: var(--accent);
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+.badge .left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--connected);
+  box-shadow: 0 0 6px var(--connected);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* --- INDICATEUR DE LAYOUT --- */
+#layoutIndicator {
+  font-size: 0.85em;
+  color: #ccc;
+  background: rgba(255,255,255,0.05);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* --- TITRES ET SOUS-TITRES --- */
+h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+  letter-spacing: 0.03em;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+/* ---------------------------------------------------------
+   TITRES DU PANNEAU CONFIG TOUCHES
+--------------------------------------------------------- */
+
+.section h2 {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: left;
+  letter-spacing: 0.3px;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+
+.section h3 {
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 18px;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+/* --- SECTIONS --- */
+.section {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 14px;
+  padding: 14px 12px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.section p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* --- INPUTS / SELECT --- */
+select, input:not(.brightness-slider) {
+  width: 100%;
+  padding: 11px;
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #1a1a24 !important;
+  color: var(--text) !important;
+  font-size: 14px;
+}
+
+select option {
+  background: #1a1a24;
+  color: var(--text);
+}
+
+/* --- BOUTONS --- */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #7c4dff, #4f46e5);
+  color: white;
+  box-shadow:
+    0 10px 25px rgba(124, 77, 255, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 30px rgba(124, 77, 255, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* --- ONGLET NAVIGATION --- */
+#tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tab-btn {
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 13px;
+}
+
+.tab-btn.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: rgba(124, 77, 255, 0.4);
+}
+
+/* --- GRILLE DES TOUCHES --- */
+.keys-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 14px;
+}
+
+.key {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.key.active {
+  border-color: var(--accent);
+  background: rgba(124, 77, 255, 0.15);
+  box-shadow: 0 6px 15px rgba(124, 77, 255, 0.4);
+}
+
+/* --- BUBBLES --- */
+.shortcut-sequence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.shortcut-tag {
+  background: rgba(124, 77, 255, 0.2);
+  border: 1px solid rgba(124, 77, 255, 0.4);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.shortcut-list {
+  max-height: 120px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.shortcut-item {
+  padding: 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.shortcut-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.preset-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.preset {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ccc;
+}
+
+.preset:hover {
+  border-color: var(--accent);
+}
+
+.extra-colors {
+  display: grid;
+  grid-template-columns: repeat(4, 40px);
+  grid-auto-rows: 40px;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.color-ball {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #444;
+}
+
+/* --- BOUTON ENREGISTRER LAYOUT --- */
+#saveLayoutBtn {
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* --- Bulles HID compactes --- */
+.bubble-sequence .bubble-tag,
+#actionBubbles .bubble-tag {
+  background: rgba(124, 77, 255, 0.20);
+  border: 1px solid rgba(124, 77, 255, 0.35);
+  padding: 3px 7px;
+  border-radius: 6px;
+  font-size: 12px;
+  box-shadow: none;
+  gap: 4px;
+  margin: 3px;
+  cursor: pointer;
+}
+
+.bubble-sequence .bubble-text {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bubble-sequence .bubble-close {
+  font-size: 12px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.bubble-sequence .bubble-close:hover {
+  opacity: 1;
+}
+
+#actionBubbles .bubble-tag {
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+/* --- SELECT OPTGROUP --- */
+select optgroup[label] {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent);
+  font-weight: 700;
+  padding: 4px 0;
+  text-align: center;
+}
+
+select optgroup option {
+  background: #1a1a24;
+  color: var(--text);
+  text-align: left;
+}
+
+/* ---------------------------------------------------------
+   SLIDER DE LUMINOSITÉ — VERSION FINE (RESTORED)
+--------------------------------------------------------- */
+
+.brightness-container {
+  width: 240px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.brightness-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 240px;
+  height: 14px;
+  border-radius: 14px;
+  background: none !important;
+  outline: none;
+  cursor: pointer;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+}
+
+.brightness-slider::-webkit-slider-runnable-track {
+  height: 14px;
+  border-radius: 14px;
+  background: var(--slider-gradient, linear-gradient(to right, #000000, #ffffff));
+}
+
+.brightness-slider::-moz-range-track {
+  height: 14px;
+  border-radius: 14px;
+  background: var(--slider-gradient, linear-gradient(to right, #000000, #ffffff));
+}
+
+.brightness-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 10px rgba(124, 77, 255, 0.6);
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+.brightness-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 10px rgba(124, 77, 255, 0.6);
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------
+   SLIDER DE VITESSE — IDENTIQUE À LA LUMINOSITÉ
+--------------------------------------------------------- */
+
+.speed-container {
+  width: 240px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+#ledSpeed {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 240px;
+  height: 14px;
+  border-radius: 14px;
+  background: linear-gradient(to right, #222, #999);
+  outline: none;
+  cursor: pointer;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+}
+
+#ledSpeed::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 10px rgba(124, 77, 255, 0.6);
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+#ledSpeed::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 10px rgba(124, 77, 255, 0.6);
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------
+   ANIMATION SELECTOR — PREMIUM WLED-INSPIRED
+--------------------------------------------------------- */
+
+.animation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.anim-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.anim-item:hover {
+  background: rgba(124, 77, 255, 0.10);
+  border-color: rgba(124, 77, 255, 0.35);
+  color: var(--text);
+}
+
+.anim-item.active {
+  background: rgba(124, 77, 255, 0.18);
+  border-color: rgba(124, 77, 255, 0.55);
+  color: var(--accent);
+  box-shadow: 0 0 12px rgba(124, 77, 255, 0.45);
+}
+
+/* ---------------------------------------------------------
+   🔥 AJOUT : AFFICHAGE DES TOUCHES (NUMÉRO / LABEL)
+--------------------------------------------------------- */
+
+.key {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 6px;
+}
+
+.key-number {
+  font-size: 14px;
+  opacity: 0.35;
+}
+
+.key-label {
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 600;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+/* ---------------------------------------------------------
+   🔧 Correction : empêcher la déformation des touches
+--------------------------------------------------------- */
+
+.keys-grid .key {
+  width: 100%;
+  height: 70px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.key-label {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 6px;
+}
