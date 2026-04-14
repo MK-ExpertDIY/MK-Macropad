@@ -28,6 +28,9 @@ This project is distributed under the **GPL‑3.0** license.
 Any redistributed modified version must remain open‑source and must acknowledge the origin of the project.
 
 
+-------------------------------------------------------------------------------------------------------------
+
+
 FR:
 
 MK Macropad est un macropad open‑source basé sur ESP32, comprenant :
